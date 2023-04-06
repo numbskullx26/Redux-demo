@@ -15,7 +15,6 @@ function orderCake() {
 
 const initialState = {
   numberOfCakes: 10,
-  anotherProperty: 0,
 };
 
 // Creating the reducer function
@@ -25,7 +24,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CAKE_ORDERED:
       return {
-        ...state,
         numberOfCakes: state.numberOfCakes - 1,
       };
     default:
