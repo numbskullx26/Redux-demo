@@ -10,3 +10,23 @@ function orderCake() {
     quantity: 1,
   };
 }
+
+// Creating the initial or default state which is always an object containing different attributes
+
+const initialState = {
+  numberOfCakes: 10,
+};
+
+// Creating the reducer function
+// Syntax: (previousState,action) => newState
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CAKE_ORDERED:
+      return {
+        numberOfCakes: state.numberOfCakes - 1,
+      };
+    default:
+      return state;
+  }
+};
