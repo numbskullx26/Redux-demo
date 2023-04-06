@@ -28,6 +28,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CAKE_ORDERED:
       return {
+        ...state,
         numberOfCakes: state.numberOfCakes - 1,
       };
     default:
@@ -37,11 +38,12 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(reducer);
 console.log("Initial State", store.getState());
-
+// whenever the state of the objkect is updated, this function will get called which will ultimately print the updated state as console.log
 const unsubscribe = store.subscribe(() =>
   console.log("Updated state", store.getState())
 );
 
+//each Dispatch call will update the state of the object. orderCake() function is passed in this.
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
