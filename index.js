@@ -7,6 +7,7 @@ const createStore = redux.createStore;
 const CAKE_ORDERED = "CAKE_ORDERED";
 // First action in Redux
 // An action is an object with the type property
+
 // An action creator is an pure function that returns the object
 function orderCake() {
   return {
@@ -43,7 +44,7 @@ const unsubscribe = store.subscribe(() =>
   console.log("Updated state", store.getState())
 );
 
-//each Dispatch call will update the state of the object. orderCake() function is passed in this.
+//each Dispatch call will update the state of the object. orderCake() function is passed in this, which is an action creator.
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
