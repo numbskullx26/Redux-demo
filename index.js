@@ -4,7 +4,9 @@ const redux = require("redux");
 const createStore = redux.createStore;
 
 // A constant defining the state of the variable
+/// this is called an action type
 const CAKE_ORDERED = "CAKE_ORDERED";
+const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 // First action in Redux
 // An action is an object with the type property
 
@@ -12,7 +14,14 @@ const CAKE_ORDERED = "CAKE_ORDERED";
 function orderCake() {
   return {
     type: CAKE_ORDERED,
-    quantity: 1,
+    payload: 1,
+  };
+}
+
+function restockCake(qty = 1) {
+  return {
+    type: CAKE_RESTOCKED,
+    payload: qty,
   };
 }
 
@@ -32,6 +41,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         numberOfCakes: state.numberOfCakes - 1,
       };
+    case CAKE_RESTOCKED:
+      return {
+        ...state,
+        numberOfCakes: state.numberOfCakes + action.payload,
+      };
     default:
       return state;
   }
@@ -49,5 +63,5 @@ store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
-
+store.dispatch(restockCake(3));
 unsubscribe();
