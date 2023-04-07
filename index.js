@@ -2,7 +2,7 @@ const redux = require("redux");
 // Using redux to create a new store to implement the following functions of a redux store
 
 const createStore = redux.createStore;
-
+const combineReducers = redux.combineReducers;
 // A constant defining the state of the variable
 /// this is called an action type
 const CAKE_ORDERED = "CAKE_ORDERED";
@@ -91,33 +91,38 @@ const icecreamReducer = (state = initialIcecreamState, action) => {
   }
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case CAKE_ORDERED:
-      return {
-        ...state,
-        numberOfCakes: state.numberOfCakes - 1,
-      };
-    case CAKE_RESTOCKED:
-      return {
-        ...state,
-        numberOfCakes: state.numberOfCakes + action.payload,
-      };
-    case ICECREAM_ORDERED:
-      return {
-        ...state,
-        numberOfIcecreams: state.numberOfIcecreams - 1,
-      };
-    case ICECREAM_RESTOCKED:
-      return {
-        numberOfIcecreams: state.numberOfIcecreams + action.payload,
-      };
-    default:
-      return state;
-  }
-};
+// const reducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case CAKE_ORDERED:
+//       return {
+//         ...state,
+//         numberOfCakes: state.numberOfCakes - 1,
+//       };
+//     case CAKE_RESTOCKED:
+//       return {
+//         ...state,
+//         numberOfCakes: state.numberOfCakes + action.payload,
+//       };
+//     case ICECREAM_ORDERED:
+//       return {
+//         ...state,
+//         numberOfIcecreams: state.numberOfIcecreams - 1,
+//       };
+//     case ICECREAM_RESTOCKED:
+//       return {
+//         numberOfIcecreams: state.numberOfIcecreams + action.payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  iceCream: icecreamReducer,
+});
+
+const store = createStore(rootReducer);
 console.log("Initial State", store.getState());
 // whenever the state of the objkect is updated, this function will get called which will ultimately print the updated state as console.log
 const unsubscribe = store.subscribe(() =>
