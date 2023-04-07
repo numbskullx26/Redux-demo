@@ -42,13 +42,54 @@ function restockIcecream(qty = 1) {
 }
 // Creating the initial or default state which is always an object containing different attributes
 
-const initialState = {
+// const initialState = {
+//   numberOfCakes: 10,
+//   numberOfIcecreams: 20,
+// };
+
+const initialCakeState = {
   numberOfCakes: 10,
+};
+
+const initialIcecreamState = {
   numberOfIcecreams: 20,
 };
 
 // Creating the reducer function
 // Syntax: (previousState,action) => newState
+
+const cakeReducer = (state = initialCakeState, action) => {
+  switch (action.type) {
+    case CAKE_ORDERED:
+      return {
+        ...state,
+        numberOfCakes: state.numberOfCakes - 1,
+      };
+    case CAKE_RESTOCKED:
+      return {
+        ...state,
+        numberOfCakes: state.numberOfCakes + action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const icecreamReducer = (state = initialIcecreamState, action) => {
+  switch (action.type) {
+    case ICECREAM_ORDERED:
+      return {
+        ...state,
+        numberOfIcecreams: state.numberOfIcecreams - 1,
+      };
+    case ICECREAM_RESTOCKED:
+      return {
+        numberOfIcecreams: state.numberOfIcecreams + action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
