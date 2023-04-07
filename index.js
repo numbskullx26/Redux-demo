@@ -90,5 +90,8 @@ store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(restockCake(3));
 
-
+store.dispatch(orderIcecream());
+store.dispatch(orderIcecream());
+store.dispatch(orderIcecream());
+store.dispatch(restockIcecream());
 unsubscribe();
