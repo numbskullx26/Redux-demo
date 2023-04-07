@@ -7,6 +7,8 @@ const createStore = redux.createStore;
 /// this is called an action type
 const CAKE_ORDERED = "CAKE_ORDERED";
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
+const ICECREAM_ORDERED = "ICECREAM_ORDERED";
+const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
 // First action in Redux
 // An action is an object with the type property
 
@@ -25,10 +27,24 @@ function restockCake(qty = 1) {
   };
 }
 
+function orderIcecream(qty = 1) {
+  return {
+    type: ICECREAM_ORDERED,
+    payload: qty,
+  };
+}
+
+function restockIcecream(qty = 1) {
+  return {
+    type: ICECREAM_RESTOCKED,
+    payload: qty,
+  };
+}
 // Creating the initial or default state which is always an object containing different attributes
 
 const initialState = {
   numberOfCakes: 10,
+  numberOfIcecreams: 20,
 };
 
 // Creating the reducer function
@@ -45,6 +61,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         numberOfCakes: state.numberOfCakes + action.payload,
+      };
+    case ICECREAM_ORDERED:
+      return {
+        ...state,
+        numberOfIcecreams: state.numberOfIcecreams - 1,
+      };
+    case ICECREAM_RESTOCKED:
+      return {
+        numberOfIcecreams: state.numberOfIcecreams + action.payload,
       };
     default:
       return state;
@@ -64,4 +89,6 @@ store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(restockCake(3));
+
+
 unsubscribe();
