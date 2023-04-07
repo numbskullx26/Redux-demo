@@ -1,8 +1,17 @@
 const redux = require("redux");
+//redux-logger is a middleware which we are importing from the redux library
+
+const reduxLogger = require("redux-logger");
 // Using redux to create a new store to implement the following functions of a redux store
 
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
+
+//using the createLogger() function of the reduxLogger library
+const logger = reduxLogger.createLogger();
+//using the applyMiddleware() function of the redux library
+const applyMiddleware = redux.applyMiddleware;
+
 // A constant defining the state of the variable
 /// this is called an action type
 const CAKE_ORDERED = "CAKE_ORDERED";
@@ -122,12 +131,10 @@ const rootReducer = combineReducers({
   iceCream: icecreamReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 console.log("Initial State", store.getState());
 // whenever the state of the objkect is updated, this function will get called which will ultimately print the updated state as console.log
-const unsubscribe = store.subscribe(() =>
-  console.log("Updated state", store.getState())
-);
+const unsubscribe = store.subscribe(() => {});
 
 //each Dispatch call will update the state of the object. orderCake() function is passed in this, which is an action creator.
 store.dispatch(orderCake());
